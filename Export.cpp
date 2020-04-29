@@ -1,7 +1,7 @@
 #include "Export.h"
 #include "src/Algo/VRP.h"
 
-void Solve(int numNode, double* x, double* y, double* demand, int numCar, double* capacity, double* disLimit, double k1, double k2, double k3, void(*Callback)(int numCar, int** path, int* pathLen, double* load, double* mileage))
+void Solve(int numNode, double* x, double* y, double* demand, int numCar, double* capacity, double* disLimit, double k1, double k2, double k3, int generation, void(*Callback)(int numCar, int** path, int* pathLen, double* load, double* mileage))
 {
     VRP vrp;
 
@@ -22,7 +22,7 @@ void Solve(int numNode, double* x, double* y, double* demand, int numCar, double
 
 	//求解
 	Result res;
-	vrp.solve(res);
+	vrp.solve(generation, res);
 
 	//获取结果
 	int** path = new int*[numCar];

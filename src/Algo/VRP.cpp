@@ -14,7 +14,7 @@ VRP::VRP()
 	k1 = k2 = k3 = 1.0;
 }
 
-void VRP::readDataFromFile(const std::string& filename)
+/*void VRP::readDataFromFile(const std::string& filename)
 {
 	//打开文件
 	ifstream fin(filename);
@@ -52,7 +52,7 @@ void VRP::readDataFromFile(const std::string& filename)
 		fin >> w >> d;
 		carInfo.push_back(Car(i, w, d));
 	}
-}
+}*/
 
 void VRP::addNode(double x, double y, double demand)
 {
@@ -92,7 +92,7 @@ std::string VRP::toString() const
 	return s;
 }
 
-void VRP::solve(Result& res)
+void VRP::solve(int generation, Result& res)
 {
 	//预处理所有点对的距离
 	dis = vector<vector<double>>(cNode + 1, vector<double>(cNode + 1, 0.0));
@@ -108,7 +108,7 @@ void VRP::solve(Result& res)
 
 	//初始化种群
 	vector<Chrom> chroms;
-	while (chroms.size() < 1000)
+	while (chroms.size() < 1500)
 	{
 		Chrom c(*this);
 		if (c.valid)
@@ -135,7 +135,9 @@ void VRP::solve(Result& res)
 			cnt++;
 		}
 
-		if (cnt >= 1000)
+
+		//generation = 1500
+		if (cnt >= generation)
 		{
 			break;
 		}
